@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
+	server "github.com/common-go/http"
 	"net/http"
+	"reflect"
 
 	"github.com/gorilla/mux"
 
@@ -87,6 +89,30 @@ func (h *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
 	respond(w, result)
 }
 
+func (h *UserHandler) Patch(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+	if len(id) == 0 {
+		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
+		return
+	}
+
+	ids := []string{"id"}
+
+	userType := reflect.TypeOf(User{})
+	_, jsonMap := server.BuildMapField(userType)
+	body, _, er1 := server.BodyToJson(r, userType, ids, jsonMap, nil)
+	if er1 != nil {
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+
+	result, er2 := h.service.Patch(r.Context(),body)
+	if er2 != nil {
+		http.Error(w, er2.Error(), http.StatusInternalServerError)
+		return
+	}
+	respond(w, result)
+}
 func (h *UserHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	if len(id) == 0 {

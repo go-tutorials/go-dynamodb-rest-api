@@ -30,10 +30,12 @@ github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghf
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/common-go/config v0.0.9 h1:B8KIUD8T1SChNKWmhTWV3t9nsn7mO/fOKyRvQaq4Q6U=
 github.com/common-go/config v0.0.9/go.mod h1:q1FLnPrcmmHOyVSIGOhzR6YcwK63saWvww/tfXsu6q8=
-github.com/common-go/dynamodb v0.0.0-20210404082846-0b853c3f6ab1 h1:L8nBA4G70kakXdyjBkj4SJZIyv3QqGRZSoJEM7gptZs=
-github.com/common-go/dynamodb v0.0.0-20210404082846-0b853c3f6ab1/go.mod h1:Qt6NS0dKU8NUoVgzntGP7Ld3/n0+mnuG5M4ZlsaXMKI=
+github.com/common-go/dynamodb v0.0.0-20210413090414-e9476b0dda4e h1:6odmoW1xllM8iK4u60FNvtoko1RMrTWUyzXaGB0C66I=
+github.com/common-go/dynamodb v0.0.0-20210413090414-e9476b0dda4e/go.mod h1:Qt6NS0dKU8NUoVgzntGP7Ld3/n0+mnuG5M4ZlsaXMKI=
 github.com/common-go/health v1.0.6 h1:RU1HKPk1fuNu1vCLTUBhYdrI8tMzioF9aqt77KXOb9w=
 github.com/common-go/health v1.0.6/go.mod h1:GFbpmNEjkv3GPiVsp+qE9W3RK2n4IP3CzKpdg/ik4+I=
+github.com/common-go/http v0.0.7 h1:olWz/wvj8hWBU96R02mCgQs3hRLT813XLAtMjHJjePs=
+github.com/common-go/http v0.0.7/go.mod h1:jmT3KGcaCt1S6oRq9SGtVF1Tct5EOgT8CYP53dImITI=
 github.com/common-go/log v0.0.6 h1:3as6x1r5OYV/KMcknCIPJNzmuC2WE2XsbUWaZJEVoL4=
 github.com/common-go/log v0.0.6/go.mod h1:HSl/t/UyTyEfdQT5q5xu0KhM8i23+oNRCQu9HKR12EQ=
 github.com/common-go/middleware v0.1.0 h1:L0ib6srRM6IsZr4d72U2FRpwTyZFN8sEyPkqnh5RGEA=
@@ -58,8 +60,6 @@ github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
-github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
-github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
 github.com/gogo/protobuf v1.1.1/go.mod h1:r8qH/GZQm5c6nD/R0oafs1akxWv10x8SbQlK7atdtwQ=
 github.com/gogo/protobuf v1.2.1/go.mod h1:hp+jE20tsWTFYpLwKvXlhS1hjn+gTNwPg2I6zVXpSg4=

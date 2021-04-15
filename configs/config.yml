@@ -4,8 +4,6 @@ server:
 
 db:
   region: us-west-2
-  access_key_id: AKIAYP22AGQ6VRBZZK6T
-  secret_access_key: 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
 
 log:
   level: info

@@ -12,6 +12,7 @@ const (
 	POST   = "POST"
 	PUT    = "PUT"
 	DELETE = "DELETE"
+	PATCH = "PATCH"
 )
 
 func Route(r *mux.Router, context context.Context, dbConfig dynamodb.Config) error {
@@ -27,6 +28,7 @@ func Route(r *mux.Router, context context.Context, dbConfig dynamodb.Config) err
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Load).Methods(GET)
 	r.HandleFunc(userPath, app.UserHandler.Insert).Methods(POST)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Update).Methods(PUT)
+	r.HandleFunc(userPath+"/{id}", app.UserHandler.Patch).Methods(PATCH)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Delete).Methods(DELETE)
 
 	return nil

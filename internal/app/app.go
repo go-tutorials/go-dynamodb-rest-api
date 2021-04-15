@@ -24,7 +24,7 @@ func NewApp(conf d.Config) (*ApplicationContext, error) {
 	userService := services.NewUserService(db)
 	userHandler := handlers.NewUserHandler(userService)
 
-	dynamodbChecker := services.NewDynamodbHealthChecker(db)
+	dynamodbChecker := d.NewHealthChecker(db)
 	checkers := []health.HealthChecker{dynamodbChecker}
 	healthHandler := health.NewHealthHandler(checkers)
 

@@ -1,11 +1,14 @@
 package services
 
 import (
+	"context"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	d "github.com/common-go/dynamodb"
 	. "go-service/internal/models"
+	"reflect"
 )
 
 type DynamodbUserService struct {
@@ -108,4 +111,12 @@ func (m *DynamodbUserService) Delete(id string) (int64, error) {
 		return 0, err
 	}
 	return 1, err
+}
+
+func (m *DynamodbUserService) Patch(ctx context.Context,user map[string]interface{}) (int64, error) {
+	tableName := User{}.GetTableName()
+	modelType := reflect.TypeOf(User{})
+	mapper := d.MakeMapObject(modelType)
+	return d.PatchOne(ctx,m.DB,tableName,[]string{"id"},d.MapToDBObject(user,mapper))
+
 }
