@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	d "github.com/common-go/dynamodb"
+	d "github.com/core-go/dynamodb"
 	. "go-service/internal/models"
 	"reflect"
 )
@@ -19,7 +19,7 @@ func NewUserService(db *dynamodb.DynamoDB) *DynamodbUserService {
 	return &DynamodbUserService{DB: db}
 }
 
-func (m *DynamodbUserService) GetAll() (*[]User, error) {
+func (m *DynamodbUserService) GetAll(ctx context.Context) (*[]User, error) {
 	params := &dynamodb.ScanInput{
 		TableName: aws.String(User{}.GetTableName()),
 	}
@@ -32,7 +32,7 @@ func (m *DynamodbUserService) GetAll() (*[]User, error) {
 	return &users, err
 }
 
-func (m *DynamodbUserService) Load(id string) (*User, error) {
+func (m *DynamodbUserService) Load(ctx context.Context, id string) (*User, error) {
 	key, err := dynamodbattribute.MarshalMap(UserKey{
 		Id:  id,
 	})
@@ -51,7 +51,7 @@ func (m *DynamodbUserService) Load(id string) (*User, error) {
 	return &user, err
 }
 
-func (m *DynamodbUserService) Insert(user *User) (int64, error) {
+func (m *DynamodbUserService) Insert(ctx context.Context, user *User) (int64, error) {
 	avUser, err := dynamodbattribute.MarshalMap(user)
 	if err != nil {
 		return 0, err
@@ -64,7 +64,7 @@ func (m *DynamodbUserService) Insert(user *User) (int64, error) {
 	return 1, err
 }
 
-func (m *DynamodbUserService) Update(user *User) (int64, error) {
+func (m *DynamodbUserService) Update(ctx context.Context, user *User) (int64, error) {
 	key, err := dynamodbattribute.MarshalMap(UserKey{
 		Id:  user.Id,
 	})
@@ -95,7 +95,7 @@ func (m *DynamodbUserService) Update(user *User) (int64, error) {
 	return 1, err
 }
 
-func (m *DynamodbUserService) Delete(id string) (int64, error) {
+func (m *DynamodbUserService) Delete(ctx context.Context, id string) (int64, error) {
 	key, err := dynamodbattribute.MarshalMap(UserKey{
 		Id:  id,
 	})
@@ -113,7 +113,7 @@ func (m *DynamodbUserService) Delete(id string) (int64, error) {
 	return 1, err
 }
 
-func (m *DynamodbUserService) Patch(ctx context.Context,user map[string]interface{}) (int64, error) {
+func (m *DynamodbUserService) Patch(ctx context.Context, user map[string]interface{}) (int64, error) {
 	tableName := User{}.GetTableName()
 	modelType := reflect.TypeOf(User{})
 	mapper := d.MakeMapObject(modelType)

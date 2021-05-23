@@ -2,11 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
-	server "github.com/common-go/http"
+	sv "github.com/core-go/service"
+	"github.com/gorilla/mux"
 	"net/http"
 	"reflect"
-
-	"github.com/gorilla/mux"
 
 	. "go-service/internal/models"
 	. "go-service/internal/services"
@@ -21,7 +20,7 @@ func NewUserHandler(service UserService) *UserHandler {
 }
 
 func (h *UserHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	result, err := h.service.GetAll()
+	result, err := h.service.GetAll(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -36,7 +35,7 @@ func (h *UserHandler) Load(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, err := h.service.Load(id)
+	result, err := h.service.Load(r.Context(), id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -53,7 +52,7 @@ func (h *UserHandler) Insert(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, er2 := h.service.Insert(&user)
+	result, er2 := h.service.Insert(r.Context(), &user)
 	if er2 != nil {
 		http.Error(w, er1.Error(), http.StatusInternalServerError)
 		return
@@ -81,7 +80,7 @@ func (h *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, er2 := h.service.Update(&user)
+	result, er2 := h.service.Update(r.Context(), &user)
 	if er2 != nil {
 		http.Error(w, er2.Error(), http.StatusInternalServerError)
 		return
@@ -98,28 +97,37 @@ func (h *UserHandler) Patch(w http.ResponseWriter, r *http.Request) {
 
 	ids := []string{"id"}
 
-	userType := reflect.TypeOf(User{})
-	_, jsonMap := server.BuildMapField(userType)
-	body, _, er1 := server.BodyToJson(r, userType, ids, jsonMap, nil)
+	var user User
+	userType := reflect.TypeOf(user)
+	_, jsonMap := sv.BuildMapField(userType)
+	body, _ := sv.BuildMapAndStruct(r, &user)
+	if len(user.Id) == 0 {
+		user.Id = id
+	} else if id != user.Id {
+		http.Error(w, "Id not match", http.StatusBadRequest)
+		return
+	}
+	json, er1 := sv.BodyToJson(r, user, body, ids, jsonMap, nil)
 	if er1 != nil {
-		http.Error(w, "Bad request", http.StatusBadRequest)
+		http.Error(w, er1.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	result, er2 := h.service.Patch(r.Context(),body)
+	result, er2 := h.service.Patch(r.Context(), json)
 	if er2 != nil {
 		http.Error(w, er2.Error(), http.StatusInternalServerError)
 		return
 	}
 	respond(w, result)
 }
+
 func (h *UserHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	if len(id) == 0 {
 		http.Error(w, "Id cannot be empty", http.StatusBadRequest)
 		return
 	}
-	result, err := h.service.Delete(id)
+	result, err := h.service.Delete(r.Context(), id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

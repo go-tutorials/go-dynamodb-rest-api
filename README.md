@@ -121,14 +121,13 @@ DELETE /users/wolverine
 ```
 
 ## Common libraries
-- [common-go/health](https://github.com/common-go/health): include HealthHandler, HealthChecker, SqlHealthChecker
-- [common-go/config](https://github.com/common-go/config): to load the config file, and merge with other environments (SIT, UAT, ENV)
-- [common-go/log](https://github.com/common-go/log)
-- [common-go/middleware](https://github.com/common-go/middleware): to log all http requests, http responses. User can configure not to log the health check.
-- [common-go/dynamodb](https://github.com/common-go/dynamodb): to load config, some utils for dynamodb.
+- [core-go/health](https://github.com/core-go/health): include HealthHandler, HealthChecker, SqlHealthChecker
+- [core-go/config](https://github.com/core-go/config): to load the config file, and merge with other environments (SIT, UAT, ENV)
+- [core-go/log](https://github.com/core-go/log): log and log middleware
+- [core-go/dynamodb](https://github.com/core-go/dynamodb): to load config, some utils for dynamodb.
 
-### common-go/health
-To check if the service is available, refer to [common-go/health](https://github.com/common-go/health)
+### core-go/health
+To check if the service is available, refer to [core-go/health](https://github.com/core-go/health)
 #### *Request:* GET /health
 #### *Response:*
 ```json
@@ -160,14 +159,14 @@ To handler routing
 	r.HandleFunc("/health", healthHandler.Check).Methods("GET")
 ```
 
-### common-go/config
+### core-go/config
 To load the config from "config.yml", in "configs" folder
 ```go
 package main
 
 import (
-	"github.com/common-go/config"
-	"github.com/common-go/dynamodb"
+	"github.com/core-go/config"
+	"github.com/core-go/dynamodb"
 )
 
 type Root struct {
@@ -183,12 +182,12 @@ func main() {
 }
 ```
 
-### common-go/log *&* common-go/middleware
+### core-go/log *&* core-go/middleware
 ```go
 import (
-	"github.com/common-go/config"
-	"github.com/common-go/log"
-	m "github.com/common-go/middleware"
+	"github.com/core-go/config"
+	"github.com/core-go/log"
+	mid "github.com/core-go/log/middleware"
 	"github.com/gorilla/mux"
 )
 
@@ -199,10 +198,10 @@ func main() {
 	r := mux.NewRouter()
 
 	log.Initialize(conf.Log)
-	r.Use(m.BuildContext)
-	logger := m.NewStructuredLogger()
-	r.Use(m.Logger(conf.MiddleWare, log.InfoFields, logger))
-	r.Use(m.Recover(log.ErrorMsg))
+	r.Use(mid.BuildContext)
+	logger := mid.NewStructuredLogger()
+	r.Use(mid.Logger(conf.MiddleWare, log.InfoFields, logger))
+	r.Use(mid.Recover(log.ErrorMsg))
 }
 ```
 To configure to ignore the health check, use "skips":

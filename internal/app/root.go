@@ -1,19 +1,19 @@
 package app
 
 import (
-	"github.com/common-go/log"
-	m "github.com/common-go/middleware"
-	"github.com/common-go/dynamodb"
+	"github.com/core-go/dynamodb"
+	"github.com/core-go/log"
+	mid "github.com/core-go/log/middleware"
 )
 
 type Root struct {
-	Server     ServerConfig   `mapstructure:"server"`
+	Server     ServerConfig    `mapstructure:"server"`
 	DB         dynamodb.Config `mapstructure:"db"`
-	Log        log.Config     `mapstructure:"log"`
-	MiddleWare m.LogConfig    `mapstructure:"middleware"`
+	Log        log.Config      `mapstructure:"log"`
+	MiddleWare mid.LogConfig   `mapstructure:"middleware"`
 }
 
 type ServerConfig struct {
 	Name string `mapstructure:"name"`
-	Port int    `mapstructure:"port"`
+	Port int64  `mapstructure:"port"`
 }

@@ -1,5 +1,5 @@
 server:
-  name: go-sql-rest-api
+  name: go-dynamodb-rest-api
   port: 8080
 
 db:
@@ -7,7 +7,6 @@ db:
 
 log:
   level: info
-  duration: duration
   map:
     time: "@timestamp"
     msg: message

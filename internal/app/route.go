@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gorilla/mux"
-	"github.com/common-go/dynamodb"
+	"github.com/core-go/dynamodb"
 )
 
 const (
