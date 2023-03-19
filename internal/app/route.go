@@ -3,8 +3,8 @@ package app
 import (
 	"context"
 
-	"github.com/gorilla/mux"
 	"github.com/core-go/dynamodb"
+	"github.com/gorilla/mux"
 )
 
 const (

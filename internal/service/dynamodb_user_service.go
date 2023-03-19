@@ -1,4 +1,4 @@
-package services
+package service
 
 import (
 	"context"
@@ -7,8 +7,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	d "github.com/core-go/dynamodb"
-	. "go-service/internal/models"
 	"reflect"
+
+	. "go-service/internal/model"
 )
 
 type DynamodbUserService struct {

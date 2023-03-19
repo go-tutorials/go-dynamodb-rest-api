@@ -6,7 +6,7 @@ import (
 	mid "github.com/core-go/log/middleware"
 )
 
-type Root struct {
+type Config struct {
 	Server     ServerConfig    `mapstructure:"server"`
 	DB         dynamodb.Config `mapstructure:"db"`
 	Log        log.Config      `mapstructure:"log"`

@@ -4,13 +4,13 @@ import (
 	d "github.com/core-go/dynamodb"
 	"github.com/core-go/health"
 
-	"go-service/internal/handlers"
-	"go-service/internal/services"
+	"go-service/internal/handler"
+	"go-service/internal/service"
 )
 
 type ApplicationContext struct {
 	HealthHandler *health.Handler
-	UserHandler   *handlers.UserHandler
+	UserHandler   *handler.UserHandler
 }
 
 func NewApp(conf d.Config) (*ApplicationContext, error) {
@@ -19,10 +19,10 @@ func NewApp(conf d.Config) (*ApplicationContext, error) {
 		return nil, err
 	}
 
-	services.CreateTableUsers(db)
+	service.CreateTableUsers(db)
 
-	userService := services.NewUserService(db)
-	userHandler := handlers.NewUserHandler(userService)
+	userService := service.NewUserService(db)
+	userHandler := handler.NewUserHandler(userService)
 
 	dynamodbChecker := d.NewHealthChecker(db)
 	healthHandler := health.NewHandler(dynamodbChecker)
