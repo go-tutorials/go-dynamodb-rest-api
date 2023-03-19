@@ -19,7 +19,7 @@ func NewUserService(db *dynamodb.DynamoDB) *DynamodbUserService {
 	return &DynamodbUserService{DB: db}
 }
 
-func (m *DynamodbUserService) GetAll(ctx context.Context) (*[]User, error) {
+func (m *DynamodbUserService) All(ctx context.Context) (*[]User, error) {
 	params := &dynamodb.ScanInput{
 		TableName: aws.String(User{}.GetTableName()),
 	}

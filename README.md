@@ -1,10 +1,10 @@
-# go-dynamodb-rest-api
+# go-dynamodb-tutorial
 
 ## How to run
 #### Clone the repository
 ```shell
-git clone https://github.com/go-tutorials/go-dynamodb-rest-api.git
-cd go-dynamodb-rest-api
+git clone https://github.com/go-tutorials/go-dynamodb-tutorial.git
+cd go-dynamodb-tutorial
 ```
 
 #### To run the application

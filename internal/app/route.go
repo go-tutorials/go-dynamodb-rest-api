@@ -24,7 +24,7 @@ func Route(r *mux.Router, context context.Context, dbConfig dynamodb.Config) err
 	r.HandleFunc("/health", app.HealthHandler.Check).Methods(GET)
 
 	userPath := "/users"
-	r.HandleFunc(userPath, app.UserHandler.GetAll).Methods(GET)
+	r.HandleFunc(userPath, app.UserHandler.All).Methods(GET)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Load).Methods(GET)
 	r.HandleFunc(userPath, app.UserHandler.Insert).Methods(POST)
 	r.HandleFunc(userPath+"/{id}", app.UserHandler.Update).Methods(PUT)
