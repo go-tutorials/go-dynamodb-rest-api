@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	d "github.com/core-go/dynamodb"
 	"github.com/core-go/health"
 
@@ -9,11 +10,11 @@ import (
 )
 
 type ApplicationContext struct {
-	HealthHandler *health.Handler
-	UserHandler   *handler.UserHandler
+	Health *health.Handler
+	User   *handler.UserHandler
 }
 
-func NewApp(conf d.Config) (*ApplicationContext, error) {
+func NewApp(ctx context.Context, conf d.Config) (*ApplicationContext, error) {
 	db, err := d.Connect(conf)
 	if err != nil {
 		return nil, err
@@ -28,7 +29,7 @@ func NewApp(conf d.Config) (*ApplicationContext, error) {
 	healthHandler := health.NewHandler(dynamodbChecker)
 
 	return &ApplicationContext{
-		HealthHandler: healthHandler,
-		UserHandler:   userHandler,
+		Health: healthHandler,
+		User:   userHandler,
 	}, nil
 }
