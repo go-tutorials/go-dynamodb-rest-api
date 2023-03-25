@@ -15,7 +15,7 @@ const (
 	PATCH = "PATCH"
 )
 
-func Route(r *mux.Router, ctx context.Context, dbConfig dynamodb.Config) error {
+func Route(ctx context.Context, r *mux.Router, dbConfig dynamodb.Config) error {
 	app, err := NewApp(ctx, dbConfig)
 	if err != nil {
 		return err
